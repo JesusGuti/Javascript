@@ -6,6 +6,9 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
+/**Estas son las query selector, basicamente se puede obtener un elemento
+  a traves de id's,etc
+**/
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -16,6 +19,7 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+/**Se puede construir objetos, con {} poniendo propiedades como un diccionario**/
 const weapons = [
   { name: 'stick', power: 5 },
   { name: 'dagger', power: 30 },
@@ -90,13 +94,15 @@ const locations = [
   }
 ];
 
-// initialize buttons
+// Se puede poner propiedades a los botones
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 function update(location) {
+  /**Se puede cambiar el estilo de un elemento**/
   monsterStats.style.display = "none";
+  /**Se puede cambiar el texto interno de un elemento**/
   button1.innerText = location["button text"][0];
   button2.innerText = location["button text"][1];
   button3.innerText = location["button text"][2];
@@ -137,6 +143,7 @@ function buyWeapon() {
       goldText.innerText = gold;
       let newWeapon = weapons[currentWeapon].name;
       text.innerText = "You now have a " + newWeapon + ".";
+      //Push sirve para insertar un elemento
       inventory.push(newWeapon);
       text.innerText += " In your inventory you have: " + inventory;
     } else {
@@ -201,6 +208,7 @@ function attack() {
     fighting === 2 ? winGame() : defeatMonster();
   }
   if (Math.random() <= .1 && inventory.length !== 1) {
+    //Pop sirve para eliminar el ultimo elemento de un arreglo
     text.innerText += " Your " + inventory.pop() + " breaks.";
     currentWeapon--;
   }
