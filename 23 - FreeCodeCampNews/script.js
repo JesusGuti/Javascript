@@ -61,6 +61,3 @@ const displayAuthors = (authors) => {
 };
 
 loadMoreBtn.addEventListener('click', fetchMoreAuthors);
-
-
-
