@@ -56,7 +56,7 @@ function startDrag (event) {
         document.removeEventListener('touchmove', onMove)
         document.removeEventListener('touchend', onEnd)
     
-        // Does the user took a decision
+        // Does the user took a decision?
         const decisionMade = Math.abs(pullDeltaX) >= DECISION_THRESHOLD
         if (decisionMade) {
             const goRight = pullDeltaX >= 0
