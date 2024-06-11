@@ -1,0 +1,2 @@
+- closest: recorre el elemento y sus padres hasta encontrar un nodo que concida con el css selector especificado
+- ??: Nullish Coalescing, devuelve el valor de la derecha si el operador de la izquierda es falsy
