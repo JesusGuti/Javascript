@@ -1,0 +1,1 @@
+Vanilla sin dependencias
