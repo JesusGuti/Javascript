@@ -2,6 +2,10 @@ const canvas = document.querySelector('canvas')
 // Give canvas the context how we will draw
 const ctx = canvas.getContext('2d')
 
+const $sprite = document.querySelector('#sprite')
+const $bricks = document.querySelector('#bricks')
+
+
 canvas.width = 448
 canvas.height = 400
 
@@ -39,9 +43,25 @@ function drawBall () {
 }
 
 function drawPaddle () {
-    // Draw in few steps
-    ctx.fillStyle = 'red'
-    ctx.fillRect(paddleX, paddleY, paddleWidth, paddleHeight)
+     // Clip: Is the area we want to draw the image
+    const clipX = 29
+    const clipY = 174
+    const cutWidth = paddleWidth
+    const cutHeight = paddleHeight
+    const drawWidth = paddleWidth 
+    const drawHeight = paddleHeight
+
+    ctx.drawImage(
+        $sprite,
+        clipX,
+        clipY,
+        cutWidth, // Size of the cut image
+        cutHeight,
+        paddleX, // Position of the cut image
+        paddleY,
+        drawWidth, // Size of the draw
+        drawHeight
+    )
 }
 
 function drawBricks () {
