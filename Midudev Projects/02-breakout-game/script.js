@@ -1,3 +1,5 @@
+import { Ball } from "./ball.js"
+
 const canvas = document.querySelector('canvas')
 // Give canvas the context how we will draw
 const ctx = canvas.getContext('2d')
@@ -13,13 +15,14 @@ canvas.height = 400
 let counter = 0
 
 /* VARIABLES OF THE BALL */
-const ballRadius = 3
-// Position of the ball
-let x = canvas.width / 2
-let y = canvas.height - 30
-// Speed of the ball 
-let dx = 3
-let dy = -3
+let ball = new Ball(canvas.width, canvas.height)
+// const ballRadius = 3
+// // Position of the ball
+// let x = canvas.width / 2
+// let y = canvas.height - 30
+// // Speed of the ball 
+// let dx = 3
+// let dy = -3
 
 /* Variables of the paddle */
 const paddleHeight = 10
@@ -69,7 +72,7 @@ for (let column = 0; column < brickColumnCount; column++) {
 function drawBall () {
     // We will start drawing 
     ctx.beginPath()
-    ctx.arc(x, y, ballRadius, 0, Math.PI * 2)
+    ctx.arc(ball.x, ball.y, ball.ballRadius, 0, Math.PI * 2)
     ctx.fillStyle = '#fff'
     ctx.fill()
     ctx.closePath()
@@ -115,7 +118,6 @@ function drawBricks () {
                 brickWidth,
                 brickHeight
             )
-
         }
     }
 }
@@ -127,14 +129,14 @@ function collisionDetection (){
             if (currentBrick.status === BRICK_STATUS.DESTROYED) continue
 
             const isBallSameXAsBrick = 
-                x > currentBrick.x &&
-                x < currentBrick.x + brickWidth
+                ball.x > currentBrick.x &&
+                ball.x < currentBrick.x + brickWidth
             const isBallSameYAsBrick = 
-                y > currentBrick.y &&
-                y < currentBrick.y + brickHeight        
+                ball.y > currentBrick.y &&
+                ball.y < currentBrick.y + brickHeight        
             
             if (isBallSameXAsBrick && isBallSameYAsBrick) {
-                dy = -dy
+                ball.dy = -ball.dy
                 currentBrick.status = BRICK_STATUS.DESTROYED
             }
         }    
@@ -144,34 +146,34 @@ function collisionDetection (){
 function ballMovement () {
     // Bounce the ball in the lateral sides
     if (
-        x + dx > canvas.width - ballRadius ||
-        x + dx < ballRadius
+        ball.x + ball.dx > canvas.width - ball.ballRadius ||
+        ball.x + ball.dx < ball.ballRadius
     ) {
-        dx = -dx
+        ball.dx = -ball.dx
     }
 
     // Bounce the ball in top
-    if (y + dy < ballRadius) {
-        dy = -dy
+    if (ball.y + ball.dy < ball.ballRadius) {
+        ball.dy = -ball.dy
     }
 
     // The ball touches the paddle
     const isBallSameXAsPaddle = 
-        x > paddleX &&
-        x < paddleX + paddleWidth
+        ball.x > paddleX &&
+        ball.x < paddleX + paddleWidth
 
     const isBallTouchingPaddle = 
-        y + dy > paddleY
+        ball.y + ball.dy > paddleY
 
     if (isBallSameXAsPaddle && isBallTouchingPaddle) {
-        dy = -dy
-    } else if (y + dy > canvas.height - ballRadius) {
+        ball.dy = -ball.dy
+    } else if (ball.y + ball.dy > canvas.height - ball.ballRadius) {
         console.log('Game Over')
         document.location.reload()
     }
 
-    x += dx
-    y += dy
+    ball.x += ball.dx
+    ball.y += ball.dy
 }
 
 function paddleMovement () {
