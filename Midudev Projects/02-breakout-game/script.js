@@ -33,6 +33,39 @@ const PADDLE_SENSITIVITY = 8
 let rightPressed = false
 let leftPressed = false
 
+/* VARIABLES OF THE BRICKS */
+const brinckRowCount = 6
+const brickColumnCount = 13
+const brickWidth = 32
+const brickHeight = 16
+const brickPadding = 0
+const brickOffSetTop = 80
+const brickOffSetLeft = 16
+const bricks = []
+
+const BRICK_STATUS = {
+    ACTIVE: 1,
+    DESTROYED: 0
+}
+
+for (let column = 0; column < brickColumnCount; column++) {
+    bricks[column] = []
+    for (let row = 0; row < brinckRowCount; row++) {
+        // Calculate the position of the brick in the screen
+        const brickX = column * (brickWidth + brickPadding) + brickOffSetLeft
+        const brickY = row * (brickHeight + brickPadding) + brickOffSetTop
+        // Assign a random color to each brick
+        const random = Math.floor(Math.random() * 8) 
+        // Save the information of the brick
+        bricks[column][row] = {
+            x: brickX, 
+            y: brickY, 
+            status: BRICK_STATUS.ACTIVE, 
+            color: random 
+        } 
+    }
+}
+
 function drawBall () {
     // We will start drawing 
     ctx.beginPath()
@@ -65,7 +98,27 @@ function drawPaddle () {
 }
 
 function drawBricks () {
+    for (let column = 0; column < brickColumnCount; column++) {
+        for (let row = 0; row < brinckRowCount; row++) {
+            const currentBrick = bricks[column][row]
+            if (currentBrick.status === BRICK_STATUS.DESTROYED)
+                continue
 
+            const clipX = currentBrick.color * 32
+            ctx.drawImage(
+                $bricks,
+                clipX,
+                0,
+                32, 
+                14,
+                currentBrick.x,
+                currentBrick.y,
+                brickWidth,
+                brickHeight
+            )
+
+        }
+    }
 }
 
 function collisionDetection (){
