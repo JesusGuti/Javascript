@@ -37,7 +37,7 @@ let rightPressed = false
 let leftPressed = false
 
 /* VARIABLES OF THE BRICKS */
-const brinckRowCount = 6
+const brickRowCount = 6
 const brickColumnCount = 13
 const brickWidth = 32
 const brickHeight = 16
@@ -53,7 +53,7 @@ const BRICK_STATUS = {
 
 for (let column = 0; column < brickColumnCount; column++) {
     bricks[column] = []
-    for (let row = 0; row < brinckRowCount; row++) {
+    for (let row = 0; row < brickRowCount; row++) {
         // Calculate the position of the brick in the screen
         const brickX = column * (brickWidth + brickPadding) + brickOffSetLeft
         const brickY = row * (brickHeight + brickPadding) + brickOffSetTop
@@ -102,7 +102,7 @@ function drawPaddle () {
 
 function drawBricks () {
     for (let column = 0; column < brickColumnCount; column++) {
-        for (let row = 0; row < brinckRowCount; row++) {
+        for (let row = 0; row < brickRowCount; row++) {
             const currentBrick = bricks[column][row]
             if (currentBrick.status === BRICK_STATUS.DESTROYED) continue
 
@@ -124,7 +124,7 @@ function drawBricks () {
 
 function collisionDetection (){
     for (let column = 0; column < brickColumnCount; column++) {
-        for (let row = 0; row < brinckRowCount; row++) { 
+        for (let row = 0; row < brickRowCount; row++) { 
             const currentBrick = bricks[column][row]
             if (currentBrick.status === BRICK_STATUS.DESTROYED) continue
 
