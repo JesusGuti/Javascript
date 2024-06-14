@@ -1,4 +1,5 @@
 import { Ball } from "./ball.js"
+import { Paddle } from "./paddle.js"
 
 const canvas = document.querySelector('canvas')
 // Give canvas the context how we will draw
@@ -6,7 +7,6 @@ const ctx = canvas.getContext('2d')
 
 const $sprite = document.querySelector('#sprite')
 const $bricks = document.querySelector('#bricks')
-
 
 canvas.width = 448
 canvas.height = 400
@@ -16,21 +16,9 @@ let counter = 0
 
 /* VARIABLES OF THE BALL */
 let ball = new Ball(canvas.width, canvas.height)
-// const ballRadius = 3
-// // Position of the ball
-// let x = canvas.width / 2
-// let y = canvas.height - 30
-// // Speed of the ball 
-// let dx = 3
-// let dy = -3
 
 /* Variables of the paddle */
-const paddleHeight = 10
-const paddleWidth = 50
-// Position of the paddle
-let paddleX = (canvas.width - paddleWidth) / 2
-let paddleY = canvas.height - paddleHeight - 10
-const PADDLE_SENSITIVITY = 8
+let paddle = new Paddle(canvas.width, canvas.height)
 
 // Flags to know if the keys are pressed or not
 let rightPressed = false
@@ -82,10 +70,10 @@ function drawPaddle () {
      // Clip: Is the area we want to draw the image
     const clipX = 29
     const clipY = 174
-    const cutWidth = paddleWidth
-    const cutHeight = paddleHeight
-    const drawWidth = paddleWidth 
-    const drawHeight = paddleHeight
+    const cutWidth = paddle.paddleWidth
+    const cutHeight = paddle.paddleHeight
+    const drawWidth = paddle.paddleWidth 
+    const drawHeight = paddle.paddleHeight
 
     ctx.drawImage(
         $sprite,
@@ -93,8 +81,8 @@ function drawPaddle () {
         clipY,
         cutWidth, // Size of the cut image
         cutHeight,
-        paddleX, // Position of the cut image
-        paddleY,
+        paddle.paddleX, // Position of the cut image
+        paddle.paddleY,
         drawWidth, // Size of the draw
         drawHeight
     )
@@ -159,11 +147,11 @@ function ballMovement () {
 
     // The ball touches the paddle
     const isBallSameXAsPaddle = 
-        ball.x > paddleX &&
-        ball.x < paddleX + paddleWidth
+        ball.x > paddle.paddleX &&
+        ball.x < paddle.paddleX + paddle.paddleWidth
 
     const isBallTouchingPaddle = 
-        ball.y + ball.dy > paddleY
+        ball.y + ball.dy > paddle.paddleY
 
     if (isBallSameXAsPaddle && isBallTouchingPaddle) {
         ball.dy = -ball.dy
@@ -177,10 +165,10 @@ function ballMovement () {
 }
 
 function paddleMovement () {
-    if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += PADDLE_SENSITIVITY
-    } else if (leftPressed && paddleX > 0){
-        paddleX -= PADDLE_SENSITIVITY
+    if (rightPressed && paddle.paddleX < canvas.width - paddle.paddleWidth) {
+        paddle.paddleX += paddle.PADDLE_SENSITIVITY
+    } else if (leftPressed && paddle.paddleX > 0){
+        paddle.paddleX -= paddle.PADDLE_SENSITIVITY
     }
 }
 
