@@ -101,8 +101,7 @@ function drawBricks () {
     for (let column = 0; column < brickColumnCount; column++) {
         for (let row = 0; row < brinckRowCount; row++) {
             const currentBrick = bricks[column][row]
-            if (currentBrick.status === BRICK_STATUS.DESTROYED)
-                continue
+            if (currentBrick.status === BRICK_STATUS.DESTROYED) continue
 
             const clipX = currentBrick.color * 32
             ctx.drawImage(
@@ -122,7 +121,24 @@ function drawBricks () {
 }
 
 function collisionDetection (){
+    for (let column = 0; column < brickColumnCount; column++) {
+        for (let row = 0; row < brinckRowCount; row++) { 
+            const currentBrick = bricks[column][row]
+            if (currentBrick.status === BRICK_STATUS.DESTROYED) continue
 
+            const isBallSameXAsBrick = 
+                x > currentBrick.x &&
+                x < currentBrick.x + brickWidth
+            const isBallSameYAsBrick = 
+                y > currentBrick.y &&
+                y < currentBrick.y + brickHeight        
+            
+            if (isBallSameXAsBrick && isBallSameYAsBrick) {
+                dy = -dy
+                currentBrick.status = BRICK_STATUS.DESTROYED
+            }
+        }    
+    }
 }
     
 function ballMovement () {
