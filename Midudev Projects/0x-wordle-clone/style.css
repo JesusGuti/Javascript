@@ -1,0 +1,71 @@
+:root {
+    --black: #121213;
+    --gray: #3a3a3c;
+    --green: #538d4e;
+    --yellow: #e4a81d;
+}
+
+body {
+    background: var(--black);
+    color: #fff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+header {
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--gray);
+    text-align: center;
+    & h1 {
+        margin-left: 20px;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.matrix {
+    display: grid;
+    place-items: center;
+    height: 50dvh;
+    width: 70%;
+
+    & table {
+        width: 325px;
+        height: 415px;
+        border-spacing: 5px; /* Defines the distance between cells */
+
+        & .row {
+            
+            
+            & .square {
+                border-radius: 5px;
+                text-align: center;
+                border: 0.5px solid var(--gray);
+                font-size: 1.75em;
+            }
+        }
+    }
+}
+
+.keyboard {
+    display: grid;
+}
+
+.correct {
+    background: var(--green);
+    border: none !important;
+}
+
+.incorrect {
+    background: var(--yellow);
+    border: none !important;
+}
+
+.lack {
+    background: var(--gray);
+    border: none !important;
+}
