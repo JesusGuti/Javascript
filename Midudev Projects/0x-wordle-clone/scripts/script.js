@@ -56,16 +56,18 @@ function drawSpecialKey ($key) {
 function writeWord (event) {
     const { key, keyCode } = event
   
-    if (keyCode >= 65 && keyCode <= 90) {
-        $actualSquare.innerText = key.toUpperCase()
-        word = word + key
-        goNext()
+    if (word.length < selectedWord.length) {
+        if (keyCode >= 65 && keyCode <= 90) {
+            $actualSquare.innerText = key.toUpperCase()
+            word = word + key
+            goNext()
+        }
     }
 
     if (key === 'Backspace') {
+        goBack()
         $actualSquare.innerText = ''
         word = word.slice(0,actualSquareIndex)
-        goBack()
     }
 
     if (key === 'Enter') {
@@ -80,9 +82,8 @@ function writeWord (event) {
 
 function checkWord () {
     const selectedWordToArray = selectedWord.split('')
-    console.log(selectedWordToArray)
     const wordToArray = word.split('')
-    console.log(wordToArray)
+
     // We should verify if the letters we put exists 
     wordToArray.forEach((letter, index) => {
         let doesLetterExists = selectedWordToArray.includes(letter)
@@ -103,19 +104,15 @@ function checkWord () {
     if (word === selectedWord) {
         alert('Felicidades')
     } else {
-        setSquare()
         word = ''
         actualRowIndex++
         actualSquareIndex = 0
+        setSquare()
     }
 }
 
-function checkCorrectLetters () {
-    
-}
-
 function goNext () {
-    if (actualSquareIndex < selectedWord.length - 1) {
+    if (actualSquareIndex < selectedWord.length) {
         actualSquareIndex++
         setSquare()
     }
@@ -129,8 +126,13 @@ function goBack () {
 }
 
 function setSquare () {
-    $actualSquare = document.getElementById(`square-${actualRowIndex}-${actualSquareIndex}`) 
-    $actualSquare.focus()
+    const wordLength = selectedWord.length
+    if (actualRowIndex < wordLength + 1 && actualSquareIndex < wordLength ) {
+        $actualSquare = document.getElementById(`square-${actualRowIndex}-${actualSquareIndex}`)
+        $actualSquare.focus()
+    } else {
+        // To do: Game over
+    }
 }
 
 function initEvents () {
