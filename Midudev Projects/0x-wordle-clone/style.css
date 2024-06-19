@@ -1,11 +1,10 @@
-
-
 :root {
     --black: #121213;
     --gray: #3a3a3c;
     --green: #538d4e;
     --yellow: #e4a81d;
     --light-gray: #818384;
+    --white: #ffffff;
 }
 
 body {
@@ -51,6 +50,11 @@ main {
             border: 0.5px solid var(--gray);
             font-size: 1.75em;
         }
+
+        & .square:active {
+            background-color: #6ccbf7;
+            transform: scale(0.95); 
+        }
     }
 }
 
@@ -75,6 +79,7 @@ main {
             align-items: center;
             background-color: var(--light-gray);
             border-radius: 5px;
+            cursor: pointer;
         }
     
         & .special {
