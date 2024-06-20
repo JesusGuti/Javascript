@@ -31,15 +31,32 @@ main {
     gap: 20px;
 }
 
+/* This is when a letter is active */
 @keyframes pulse {
     0% {
-        transform: scale(0.5);
-    }
-    50% {
-        transform: scale(0.75);
+        transform: scale(0.9);
     }
     100% {
         transform: scale(1);
+    }
+}
+
+/* This is for flipping a letter */
+@keyframes rotate {
+    0% {
+        transform: rotateX(0)
+    }
+
+    45% {
+        transform: rotateX(90deg)
+    }
+
+    55% {
+        transform: rotateX(90deg)
+    }
+
+    100% {
+        transform: rotateX(0)
     }
 }
 
@@ -66,7 +83,11 @@ main {
 
         & .active {
             border: 1px solid var(--soft-blue) !important;
-            animation: pulse 2s infinite;   
+            animation: pulse 0.2s ease-in;   
+        }
+
+        & .filled {
+            animation: rotate 1s ease forwards;
         }
     }
 }
