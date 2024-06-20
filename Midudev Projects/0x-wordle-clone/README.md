@@ -1,3 +1,6 @@
+### WORDLE CLONE 
+This project is a wordle clone made without dependencies (Only HTML, CSS, JS).
+
 # TO DO 🎯
 - Show keyboard ✅
 - Create method to check if the word exists ✅
