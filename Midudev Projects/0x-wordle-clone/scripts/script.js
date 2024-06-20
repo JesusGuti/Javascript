@@ -24,8 +24,7 @@ function drawRows (numberOfRows) {
         }
     }
 
-    $actualRow = document.querySelector('.row')
-    $actualSquare = document.querySelector('.square')
+    setSquare()
 }
 
 function drawKeyboard () {
@@ -36,6 +35,7 @@ function drawKeyboard () {
 
         row.forEach((key) => {
             let $key = document.createElement('div')
+            $key.id = `key-${key}`
             $key.classList.add('key')
             $key.innerText = key
             drawSpecialKey($key)
@@ -53,31 +53,46 @@ function drawSpecialKey ($key) {
     }
 }
 
-function writeWord (event) {
+function writeLetter (event) {
     const { key, keyCode } = event
   
-    if (word.length < selectedWord.length) {
+    if (key === 'Backspace') {
+        goBack()
+        $actualSquare.innerText = ''
+        word = word.slice(0,actualSquareIndex)
+    } else if (key === 'Enter') {
+        if (word.length === selectedWord.length) {
+            checkWord()        
+        } else {
+            alert('Faltan letras')
+        }
+    } else if (word.length < selectedWord.length) {
         if (keyCode >= 65 && keyCode <= 90) {
             $actualSquare.innerText = key.toUpperCase()
             word = word + key
             goNext()
         }
     }
+}
 
-    if (key === 'Backspace') {
+function clickLetter (target) {
+    const key = target?.innerText
+
+    if (key === 'DEL') {
         goBack()
         $actualSquare.innerText = ''
         word = word.slice(0,actualSquareIndex)
-    }
-
-    if (key === 'Enter') {
+    } else if (key === 'ENTER') {
         if (word.length === selectedWord.length) {
             checkWord()        
         } else {
             alert('Faltan letras')
         }
+    } else if (word.length < selectedWord.length) {
+        $actualSquare.innerText = key.toUpperCase()
+        word = word + key
+        goNext()
     }
-    console.log(word)
 }
 
 function checkWord () {
@@ -87,22 +102,28 @@ function checkWord () {
     // We should verify if the letters we put exists 
     wordToArray.forEach((letter, index) => {
         let doesLetterExists = selectedWordToArray.includes(letter)
-        let squareToVerify = document.getElementById(`square-${actualRowIndex}-${index}`)
+        let $squareToVerify = document.getElementById(`square-${actualRowIndex}-${index}`)
+        let $keyLetter = document.getElementById(`key-${letter.toUpperCase()}`)
+        $keyLetter.classList.remove(['correct', 'incorrect', 'lack'])
 
         if (doesLetterExists) {
             let indexOfLetter = selectedWordToArray.indexOf(letter)
+
             if (index === indexOfLetter) {
-                squareToVerify.classList.add('correct')
+                $squareToVerify.classList.add('correct')
+                $keyLetter.classList.add('correct')
             } else {
-                squareToVerify.classList.add('incorrect')
+                $squareToVerify.classList.add('incorrect')
+                $keyLetter.classList.add('incorrect')
             }
         } else {
-            squareToVerify.classList.add('lack')
+            $squareToVerify.classList.add('lack')
+            $keyLetter.classList.add('lack')
         }
     })
 
     if (word === selectedWord) {
-        alert('Felicidades')
+        // To do: Finalize the game 🎯
     } else {
         word = ''
         actualRowIndex++
@@ -131,20 +152,19 @@ function setSquare () {
         $actualSquare = document.getElementById(`square-${actualRowIndex}-${actualSquareIndex}`)
         $actualSquare.focus()
     } else {
-        // To do: Game over
+        // To do: Game over 🎯
     }
 }
 
 function initEvents () {
     document.addEventListener('keydown', (event) => {
-        $actualSquare.focus()
-        writeWord(event)
+        writeLetter(event)
     })
 
     const keys = document.querySelectorAll('.key')
     keys.forEach((key) => {
         key.addEventListener('click', (event) => {
-            // console.log(event)
+            clickLetter(event.target)
         })
     })
 }

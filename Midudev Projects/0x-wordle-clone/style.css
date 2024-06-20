@@ -5,6 +5,7 @@
     --yellow: #e4a81d;
     --light-gray: #818384;
     --white: #ffffff;
+    --soft-blue: #92dff0;
 }
 
 body {
@@ -49,11 +50,11 @@ main {
             border-radius: 5px;
             border: 0.5px solid var(--gray);
             font-size: 1.75em;
-        }
-
-        & .square:active {
-            background-color: #6ccbf7;
-            transform: scale(0.95); 
+            
+            &:focus-within {
+                border-color:  #6ccbf7;
+                transform: scale(0.95); 
+            }
         }
     }
 }
@@ -80,8 +81,12 @@ main {
             background-color: var(--light-gray);
             border-radius: 5px;
             cursor: pointer;
-        }
-    
+            
+            &:hover {
+                background-color: var(--soft-blue);
+            }
+        } 
+
         & .special {
             width: auto;
             padding: 0 10px;
@@ -98,16 +103,16 @@ main {
 }
 
 .correct {
-    background-color: var(--green);
+    background-color: var(--green) !important;
     border: none !important;
 }
 
 .incorrect {
-    background-color: var(--yellow);
+    background-color: var(--yellow) !important;
     border: none !important;
 }
 
 .lack {
-    background-color: var(--gray);
+    background-color: var(--gray) !important;
     border: none !important;
 }
