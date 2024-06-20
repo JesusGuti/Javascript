@@ -140,6 +140,7 @@ function checkWord () {
 
 function goNext () {
     if (actualSquareIndex < selectedWord.length) {
+        $actualSquare.classList.remove('active')
         actualSquareIndex++
         setSquare()
     }
@@ -147,6 +148,7 @@ function goNext () {
 
 function goBack () {
     if (actualSquareIndex > 0) {
+        $actualSquare.classList.remove('active')
         actualSquareIndex--
         setSquare()
     }
@@ -157,6 +159,7 @@ function setSquare () {
     if (actualRowIndex < wordLength + 1 && actualSquareIndex < wordLength ) {
         $actualSquare = document.getElementById(`square-${actualRowIndex}-${actualSquareIndex}`)
         $actualSquare.focus()
+        $actualSquare.classList.add('active')
     } else {
         // To do: Game over 🎯
     }
