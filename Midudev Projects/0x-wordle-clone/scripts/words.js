@@ -1,4 +1,6 @@
 export const words = [
-    panic,
-    fruit,
+    'pucha',
+    'llama',
+    'three',
+    'alien',
 ]

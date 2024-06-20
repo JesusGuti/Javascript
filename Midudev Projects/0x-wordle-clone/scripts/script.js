@@ -1,13 +1,19 @@
 import { keyboardRows } from './keyboard.js'
+import { words } from './words.js'
 
 const $matrix = document.getElementById('matrix')
 const $keyboard = document.getElementById('keyboard')
-let $actualRow = null
 let $actualSquare = null
 let actualRowIndex = 0
 let actualSquareIndex = 0
 let word = ""
-let selectedWord = "fruit"
+let selectedWord = null
+
+function getRandomWord () {
+    const sizeOfWordsArray = words.length
+    const randomIndex = Math.floor(Math.random() * sizeOfWordsArray)
+    selectedWord = words[randomIndex]
+}
 
 function drawRows (numberOfRows) {
     for (let row = 0; row < numberOfRows + 1; row++) {
@@ -169,6 +175,7 @@ function initEvents () {
     })
 }
 
+getRandomWord()
 drawRows(5)
 drawKeyboard()
 initEvents()
