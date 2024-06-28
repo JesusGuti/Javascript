@@ -87,7 +87,7 @@ main {
         }
 
         & .filled {
-            animation: rotate 1s ease forwards;
+            animation: rotate 1.5s ease forwards;
         }
     }
 }

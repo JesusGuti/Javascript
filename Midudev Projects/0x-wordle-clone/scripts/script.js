@@ -104,30 +104,42 @@ function clickLetter (target) {
 function checkWord () {
     const selectedWordToArray = selectedWord.split('')
     const wordToArray = word.split('')
+    const delayToAnimate = 500
+    const actualRow = actualRowIndex
 
     // We should verify if the letters we put exists 
     wordToArray.forEach((letter, index) => {
-        let doesLetterExists = selectedWordToArray.includes(letter)
-        let $squareToVerify = document.getElementById(`square-${actualRowIndex}-${index}`)
-        let $keyLetter = document.getElementById(`key-${letter.toUpperCase()}`)
-        $keyLetter.classList.remove(['correct', 'incorrect', 'lack'])
+        setTimeout(() => {
+            let doesLetterExists = selectedWordToArray.includes(letter)
+            let $squareToVerify = document.getElementById(`square-${actualRow}-${index}`)
+            let $keyLetter = document.getElementById(`key-${letter.toUpperCase()}`)
+            $keyLetter.classList.remove(['correct', 'incorrect', 'lack'])
 
-        if (doesLetterExists) {
-            let indexOfLetter = selectedWordToArray.indexOf(letter)
+            $squareToVerify.classList.add('filled')
 
-            if (index === indexOfLetter) {
-                $squareToVerify.classList.add('correct')
-                $keyLetter.classList.add('correct')
+            if (doesLetterExists) {
+                let indexOfLetter = selectedWordToArray.indexOf(letter)
+
+                if (index === indexOfLetter) {
+                    $squareToVerify.classList.add('correct')
+                    $keyLetter.classList.add('correct')
+                } else {
+                    $squareToVerify.classList.add('incorrect')
+                    $keyLetter.classList.add('incorrect')
+                }
             } else {
-                $squareToVerify.classList.add('incorrect')
-                $keyLetter.classList.add('incorrect')
+                $squareToVerify.classList.add('lack')
+                $keyLetter.classList.add('lack')
             }
-        } else {
-            $squareToVerify.classList.add('lack')
-            $keyLetter.classList.add('lack')
-        }
+
+            $squareToVerify.classList.add('filled')
+        }, delayToAnimate * index)
     })
 
+    checkWinner()
+}
+
+function checkWinner () {
     if (word === selectedWord) {
         // To do: Finalize the game 🎯
     } else {
