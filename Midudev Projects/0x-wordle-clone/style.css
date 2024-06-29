@@ -166,13 +166,13 @@ main {
 
 .word {
     display: none;
-    position: relative;
-    top: 10vh;
+    position: fixed;
+    top: 20vh;
     border-radius: 4px;
     background: var(--white);
     color: var(--black);
     width: fit-content;
     height: fit-content;
     padding: 10px;
-    z-index: 2px;
+    z-index: 2;
 }

@@ -119,6 +119,7 @@ function checkWord () {
 
             if (doesLetterExists) {
                 let indexOfLetter = selectedWordToArray.indexOf(letter)
+                console.log(indexOfLetter)
 
                 if (index === indexOfLetter) {
                     $squareToVerify.classList.add('correct')
@@ -140,16 +141,20 @@ function checkWord () {
 }
 
 function checkWinner () {
-    setTimeout(() => {
-        if (word === selectedWord) {
+    if (word === selectedWord) {
+        const delayToFinishGame = 5000
+        setTimeout(() => {
             finalizeGame()
-        } else {
+        }, delayToFinishGame)    
+    } else {
+        const delayToChangeRow = 2000
+        setTimeout(() => {
             word = ''
             actualRowIndex++
             actualSquareIndex = 0
             setSquare()
-        }
-    }, 5000)
+        }, delayToChangeRow)
+    }
 }
 
 function goNext () {
@@ -191,11 +196,15 @@ function animationToShowIfCorrectWord () {
 }
 
 function showWordAlert () {
-    let $
+    const $wordToShow = document.getElementById('word-display')
+    console.log($wordToShow)
+    $wordToShow.style.display = 'initial'
+    $wordToShow.innerText = selectedWord.toUpperCase()
 }
 
 function finalizeGame () {
     animationToShowIfCorrectWord()
+    showWordAlert()
 }
 
 function gameOver () {
