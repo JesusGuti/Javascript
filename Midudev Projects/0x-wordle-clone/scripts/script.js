@@ -102,13 +102,13 @@ function clickLetter (target) {
     }
 }
 
-async function checkWord () {
+function checkWord () {
     const selectedWordToArray = selectedWord.split('')
     const wordToArray = word.split('')
     const actualRow = actualRowIndex
 
     // We should verify if the letters we put exists 
-    await wordToArray.forEach((letter, index) => {
+    wordToArray.forEach((letter, index) => {
         setTimeout(() => {
             let doesLetterExists = selectedWordToArray.includes(letter)
             let $squareToVerify = document.getElementById(`square-${actualRow}-${index}`)
@@ -136,18 +136,20 @@ async function checkWord () {
         }, delayToAnimate * index)
     })
 
-    await checkWinner()
+    checkWinner()
 }
 
 function checkWinner () {
-    if (word === selectedWord) {
-        finalizeGame()
-    } else {
-        word = ''
-        actualRowIndex++
-        actualSquareIndex = 0
-        setSquare()
-    }
+    setTimeout(() => {
+        if (word === selectedWord) {
+            finalizeGame()
+        } else {
+            word = ''
+            actualRowIndex++
+            actualSquareIndex = 0
+            setSquare()
+        }
+    }, 5000)
 }
 
 function goNext () {
@@ -177,7 +179,7 @@ function setSquare () {
     }
 }
 
-function finalizeGame () {
+function animationToShowIfCorrectWord () {
     const $correctRow = document.getElementById(`row-${actualRowIndex}`)
     const $squaresToAnimate = $correctRow.children
     for (let index=0; index < $squaresToAnimate.length; index++) {
@@ -186,6 +188,14 @@ function finalizeGame () {
             item.classList.add('completed')
         }, index * delayToAnimate)
     }
+}
+
+function showWordAlert () {
+    let $
+}
+
+function finalizeGame () {
+    animationToShowIfCorrectWord()
 }
 
 function gameOver () {

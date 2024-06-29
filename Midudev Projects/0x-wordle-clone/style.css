@@ -163,3 +163,16 @@ main {
     background-color: var(--gray) !important;
     border: none !important;
 }
+
+.word {
+    display: none;
+    position: relative;
+    top: 10vh;
+    border-radius: 4px;
+    background: var(--white);
+    color: var(--black);
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    z-index: 2px;
+}
