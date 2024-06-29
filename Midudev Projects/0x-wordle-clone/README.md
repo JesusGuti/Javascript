@@ -11,7 +11,8 @@ This project is a wordle clone made without dependencies (Only HTML, CSS, Vanill
     - Enter keyboard ✅
     - Erase keyboard ✅
 - Animation when a letter is written ✅
-- Animations when the word is completed
+- Animation when the word is completed ✅
+- Animation when the word is correct
 - Add Win event
 - Add game over event
 - Add definition of the word modal

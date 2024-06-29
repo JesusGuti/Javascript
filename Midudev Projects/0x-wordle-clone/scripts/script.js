@@ -3,6 +3,7 @@ import { words } from './words.js'
 
 const $matrix = document.getElementById('matrix')
 const $keyboard = document.getElementById('keyboard')
+const delayToAnimate = 500
 let $actualSquare = null
 let actualRowIndex = 0
 let actualSquareIndex = 0
@@ -101,14 +102,13 @@ function clickLetter (target) {
     }
 }
 
-function checkWord () {
+async function checkWord () {
     const selectedWordToArray = selectedWord.split('')
     const wordToArray = word.split('')
-    const delayToAnimate = 500
     const actualRow = actualRowIndex
 
     // We should verify if the letters we put exists 
-    wordToArray.forEach((letter, index) => {
+    await wordToArray.forEach((letter, index) => {
         setTimeout(() => {
             let doesLetterExists = selectedWordToArray.includes(letter)
             let $squareToVerify = document.getElementById(`square-${actualRow}-${index}`)
@@ -136,12 +136,12 @@ function checkWord () {
         }, delayToAnimate * index)
     })
 
-    checkWinner()
+    await checkWinner()
 }
 
 function checkWinner () {
     if (word === selectedWord) {
-        // To do: Finalize the game 🎯
+        finalizeGame()
     } else {
         word = ''
         actualRowIndex++
@@ -173,8 +173,23 @@ function setSquare () {
         $actualSquare.focus()
         $actualSquare.classList.add('active')
     } else {
-        // To do: Game over 🎯
+        gameOver()
     }
+}
+
+function finalizeGame () {
+    const $correctRow = document.getElementById(`row-${actualRowIndex}`)
+    const $squaresToAnimate = $correctRow.children
+    for (let index=0; index < $squaresToAnimate.length; index++) {
+        setTimeout(() => {
+            let item = $squaresToAnimate.item(index)
+            item.classList.add('completed')
+        }, index * delayToAnimate)
+    }
+}
+
+function gameOver () {
+
 }
 
 function initEvents () {

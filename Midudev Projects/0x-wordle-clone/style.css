@@ -60,6 +60,16 @@ main {
     }
 }
 
+@keyframes up-down {
+    0% {
+        transform: translateY(20px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
 .matrix {
     display: grid;
     place-items: center;
@@ -88,6 +98,10 @@ main {
 
         & .filled {
             animation: rotate 1.5s ease forwards;
+        }
+
+        & .completed {
+            animation: up-down 1.5s ease forwards;
         }
     }
 }
